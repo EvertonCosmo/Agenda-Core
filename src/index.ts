@@ -1,12 +1,17 @@
 import 'module-alias/register';
-
+import "reflect-metadata";
 import { config } from 'dotenv';
 import express from 'express';
 import { Server, createServer } from 'http';
 import { env } from '@config/globals';
 import { logger } from '@config/logger';
 import { ExpressServer } from './server/express';
-config();
+const envFound = config();
+if (!envFound) {
+  // This error should crash whole process
+  throw new Error("⚠️  Couldn't find .env file  ⚠️");
+}
+//config();
 
 (async function main() {
   try {

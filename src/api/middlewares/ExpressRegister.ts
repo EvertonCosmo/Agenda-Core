@@ -13,13 +13,13 @@ export const expressRegister = (router: Router): void => {
   // log incoming requests
 
   router.use((req: Request, res: Response, next: NextFunction) => {
-    if (env.NODE_ENV === 'test') {
+    if (env.NODE_ENV === 'development') {
       const ip: string | string[] | undefined =
         req.headers['x-forwarded-for'] || req.connection.remoteAddress;
       logger.log({
         isRequest: true,
         level: 'info',
-        message: `${req.method} ${req.url} ${ip}`,
+        message: `${req.method} ${req.url} from ${ip}`,
       });
     }
     return next();
